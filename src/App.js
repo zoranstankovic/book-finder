@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from 'react';
+import axios from 'axios';
+import Navbar from './components/layout/Navbar';
+import Books from './components/books/Books';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.scss';
+
+class App extends Component {
+  state = {
+    books: [],
+    loading: false
+  };
+  async componentDidMount() {
+    this.setState({ loading: true });
+    const res = await axios.get(
+      'https://www.googleapis.com/books/v1/volumes?q=quilting'
+    );
+    this.setState({ books: res.data.items, loading: false });
+  }
+  render() {
+    return (
+      <Fragment>
+        <Navbar />
+        <Books loading={this.state.loading} books={this.state.books} />
+      </Fragment>
+    );
+  }
 }
 
 export default App;
