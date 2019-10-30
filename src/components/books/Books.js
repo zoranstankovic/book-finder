@@ -14,7 +14,7 @@ const Books = ({ loading, books }) => {
       <div className='columns is-multiline'>
         {books.map(book => (
           <div className='column is-one-third' key={book.id}>
-            <BookItem book={book.volumeInfo} />
+            <BookItem book={book} />
           </div>
         ))}
       </div>

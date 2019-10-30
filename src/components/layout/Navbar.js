@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ icon, title }) => {
   return (
     <nav className='navbar' role='navigation' aria-label='main navigation'>
       <div className='container'>
         <div className='navbar-brand'>
-          <a className='navbar-item' href='/'>
+          <Link className='navbar-item' to='/'>
             <i className={icon} /> {title}
-          </a>
-          <span className='navbar-burger burger' datatarget='navbarMenu'>
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+          </Link>
+        </div>
+        <div className='navbar-end'>
+          <div className='navbar-item'>
+            <Link to='/'>Home</Link>
+          </div>
+          <div className='navbar-item'>
+            <Link to='/about'>About</Link>
+          </div>
         </div>
       </div>
     </nav>
