@@ -5,26 +5,18 @@ import PropTypes from 'prop-types';
 const Books = ({ loading, books }) => {
   if (loading) {
     return (
-      <div className='container'>
-        <section className='section'>
-          <div className='pageloader'>
-            <span className='title'>Loading</span>
-          </div>
-        </section>
+      <div className='pageloader'>
+        <span className='title'>Loading</span>
       </div>
     );
   } else {
     return (
-      <div className='container'>
-        <section className='section'>
-          <div className='columns is-multiline'>
-            {books.map(book => (
-              <div className='column is-one-third' key={book.id}>
-                <BookItem book={book.volumeInfo} />
-              </div>
-            ))}
+      <div className='columns is-multiline'>
+        {books.map(book => (
+          <div className='column is-one-third' key={book.id}>
+            <BookItem book={book.volumeInfo} />
           </div>
-        </section>
+        ))}
       </div>
     );
   }

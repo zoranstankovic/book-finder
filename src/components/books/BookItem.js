@@ -5,6 +5,10 @@ const BookItem = ({ book }) => {
   const imageLink = book.imageLinks
     ? book.imageLinks.thumbnail
     : 'https://bulma.io/images/placeholders/96x96.png';
+  const description = book.description
+    ? book.description.substring(0, 120).concat('...')
+    : '';
+  const authors = book.authors ? book.authors : [];
   return (
     <div className='card'>
       <div className='card-image'>
@@ -16,12 +20,12 @@ const BookItem = ({ book }) => {
         <div className='media'>
           <div className='media-content'>
             <p className='title is-4'>{book.title}</p>
-            <p className='subtitle is-6'>{book.authors.join(', ')}</p>
+            <p className='subtitle is-6'>{authors.join(', ')}</p>
           </div>
         </div>
 
         <div className='content'>
-          {book.description.substring(0, 120).concat('...')}
+          {description}
           <br />
           <a className='button is-primary' href={book.infoLink}>
             Read More
