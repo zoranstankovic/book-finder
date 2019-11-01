@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import BookItem from './BookItem';
-import PropTypes from 'prop-types';
+import GoogleBooksContext from '../../context/googleBooks/googleBooksContext';
 
-const Books = ({ loading, books }) => {
+const Books = () => {
+  const googleBooksContext = useContext(GoogleBooksContext);
+
+  const { loading, books } = googleBooksContext;
   if (loading) {
     return (
       <div className='pageloader'>
@@ -20,11 +23,6 @@ const Books = ({ loading, books }) => {
       </div>
     );
   }
-};
-
-Books.propTypes = {
-  books: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
 };
 
 export default Books;

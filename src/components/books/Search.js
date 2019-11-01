@@ -1,65 +1,58 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useContext } from 'react';
+import GoogleBooksContext from '../../context/googleBooks/googleBooksContext';
+import AlertContext from '../../context/alert/alertContext';
 
-class Search extends Component {
-  state = {
-    text: ''
-  };
+const Search = () => {
+  const googleBooksContext = useContext(GoogleBooksContext);
+  const alertContext = useContext(AlertContext);
+  const [text, setText] = useState('');
 
-  static propTypes = {
-    searchBooks: PropTypes.func.isRequired,
-    clearBooks: PropTypes.func.isRequired,
-    showClear: PropTypes.bool.isRequired,
-    setAlert: PropTypes.func.isRequired
-  };
-
-  onSubmit = e => {
+  const onSubmit = e => {
     e.preventDefault();
-    if (this.state.text === '') {
-      this.props.setAlert('Please enter something', 'warning');
+    if (text === '') {
+      alertContext.setAlert('Please enter something', 'warning');
     } else {
-      this.props.searchBooks(this.state.text);
-      this.setState({ text: '' });
+      googleBooksContext.searchBooks(text);
+      setText('');
     }
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
-
-  render() {
-    const { showClear, clearBooks } = this.props;
-    return (
-      <div className='box'>
-        <form onSubmit={this.onSubmit}>
-          <div className='field'>
-            <div className='control'>
-              <input
-                className='input'
-                type='text'
-                name='text'
-                value={this.state.text}
-                onChange={this.onChange}
-                placeholder='Enter Book Name'
-              />
-            </div>
+  const onChange = e => setText(e.target.value);
+  return (
+    <div className='box'>
+      <form onSubmit={onSubmit}>
+        <div className='field'>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
+              name='text'
+              value={text}
+              onChange={onChange}
+              placeholder='Enter Book Title or Author Name'
+            />
           </div>
-          <div className='field is-grouped'>
+        </div>
+        <div className='field is-grouped'>
+          <p className='control'>
+            <button type='submit' className='button is-success'>
+              Submit
+            </button>
+          </p>
+          {googleBooksContext.books.lenght > 0 && (
             <p className='control'>
-              <button type='submit' className='button is-success'>
-                Submit
+              <button
+                className='button is-danger'
+                onClick={googleBooksContext.clearBooks}
+              >
+                Clear
               </button>
             </p>
-            {showClear && (
-              <p className='control'>
-                <button className='button is-danger' onClick={clearBooks}>
-                  Clear
-                </button>
-              </p>
-            )}
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
+          )}
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default Search;
