@@ -39,7 +39,7 @@ const Search = () => {
               Submit
             </button>
           </p>
-          {googleBooksContext.books.lenght > 0 && (
+          {googleBooksContext.books.length > 0 && (
             <p className='control'>
               <button
                 className='button is-danger'
