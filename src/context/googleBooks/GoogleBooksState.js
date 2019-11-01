@@ -9,7 +9,7 @@ let googleBooksApiKey;
 if (process.env.NODE_ENV !== 'production') {
   googleBooksApiKey = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
 } else {
-  googleBooksApiKey = process.env.GOOGLE_BOOKS_API_KEY;
+  googleBooksApiKey = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
 }
 
 const GoogleBooksState = props => {
